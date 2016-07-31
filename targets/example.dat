@@ -1,0 +1,21 @@
+# Protein sequences from ensemble, needs mapping file
+
+DATABASE = ensembl
+TYPE = FASTA
+EXTRACT_TO = /ensembl/protein
+GROUP_BY = taxid
+sequence_type = pep
+status = all
+
+
+# Viral Protein files (currently hard-coded)
+######################
+
+DATABASE = refseq      
+DOMAIN = viral
+EXTRACT_TO = /ncbi/viral
+GROUP_BY = taxid
+version_status = latest
+genome_rep = Full
+assembly_level = Complete Genome
+
