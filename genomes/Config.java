@@ -96,7 +96,7 @@ public class Config {
         LOGFILE = new File(LOG_DIR, ts + "_java.log" );
         File formatdblog =  new File(LOG_DIR, ts + "_formatdb.log" );
         
-        FORMATDB_CMD += " -l " + formatdblog.toString();
+        FORMATDB_CMD += " -logfile " + formatdblog.toString();
         
         if(nolog) {
             // log = new BufferedWriter(new OutputStreamWriter( System.err ));

@@ -46,7 +46,7 @@ ln -s "${DEST}" "${ROOT}/current"
 # Start the biodb.pl program to assemble a list of file to be downloaded
 # Mapping file allows to translate from species (scientific name in Ensembl)
 # to the taxid from the NCBI taxonomy
-perl biodb.pl list -d "${DEST}" -f "${TARGET}" -m "species_taxid.dat" 
+perl biodb.pl list -d "${DEST}" -f "${TARGET}" -m "species_taxid.dat" --max-items 2 
 
 # Download the listed files
 perl biodb.pl fetch -d "${DEST}"

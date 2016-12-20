@@ -21,7 +21,7 @@ public class ExtensionFileFilter implements FileFilter {
         this.ext  = ext;
     }
     
-    public ExtensionFileFilter(String exts[]){
+    public ExtensionFileFilter(String[] exts){
         this.exts = exts;
         this.ext  = null;
     }

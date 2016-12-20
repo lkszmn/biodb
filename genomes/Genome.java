@@ -35,7 +35,8 @@ public class Genome implements Serializable{
     private final TYPE type;
     private final String gzip;
     private final String formatdb;
-    
+    private static final String[] ncbi_ext = { ".fna", ".faa" };
+    private static final ExtensionFileFilter ff = new ExtensionFileFilter(Genome.ncbi_ext);
     
     
     /** Creates a new instance of Genome */
@@ -141,7 +142,7 @@ public class Genome implements Serializable{
     
     
     private void formatNCBIFungi(File f) throws Exception {
-        File prot[] = f.listFiles();
+        File prot[] = f.listFiles(Genome.ff);
         for (int i=0; i<prot.length; ++i) {
             String n = prot[i].getName();
             File target = new File(dataDir, n);
@@ -150,7 +151,7 @@ public class Genome implements Serializable{
         }
     }
     private void formatNCBIViral(File f) throws Exception {
-        File prot[] = f.listFiles();
+        File prot[] = f.listFiles(Genome.ff);
         for (int i=0; i < prot.length; ++i) {
             String n = prot[i].getName();
             File target = new File(dataDir, n);
@@ -160,7 +161,7 @@ public class Genome implements Serializable{
     }
     
     private void formatNCBIEukaryota(File f) throws Exception {
-        File dirs[] = f.listFiles();
+        File dirs[] = f.listFiles(Genome.ff);
         for (int i=0; i<dirs.length; ++i) {
             if ( dirs[i].isDirectory() ) {
                 File files[] = dirs[i].listFiles();
@@ -179,7 +180,7 @@ public class Genome implements Serializable{
                 }
             }else{
             // e.g. INFLUENZA no subdirs
-                if ( dirs[i].toString().endsWith(".faa") ) {
+                if ( dirs[i].toString().endsWith(".faa")  || dirs[i].toString().endsWith(".fna")    ) {
                     File target = new File(dataDir, dirs[i].getName());
                     format(dirs[i], target, "prot");
                     this.aa.add(target);
@@ -220,11 +221,12 @@ public class Genome implements Serializable{
     
     private void format(File src, File targ, String dbtype)throws Exception {
 
-	String cmd = "cat "+src+" | "+formatdb+" -in stdin -dbtype "+dbtype+" -out "+targ;
+	String cmd = formatdb+" -in "+src+" -dbtype "+dbtype+" -out "+targ;
         if (src.toString().endsWith(".gz")) {
             // or better using zcat?
-            cmd = "gzip -d -c "+src+" | "+formatdb+" -in stdin -dbtype "+dbtype+" -out "+targ;
+            cmd = "gzip -d -c "+src+" | "+formatdb+" -in - -title "+src+" -dbtype "+dbtype+" -out "+targ;
         }
+        System.out.println(cmd);
 
         BashWrapper bw = new BashWrapper(cmd);
         int i = bw.call();
