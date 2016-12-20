@@ -1,0 +1,114 @@
+# Ensembl
+
+DATABASE = ensembl
+TYPE = FASTA
+EXTRACT_TO = /distfiles/ensembl
+GROUP_BY = taxid
+sequence_type = pep
+status = all
+
+
+
+
+# Bacteria
+######################
+
+DATABASE = refseq      
+DOMAIN = bacteria
+EXTRACT_TO = /distfiles/ncbi/Bacteria
+GROUP_BY = taxid
+version_status = latest
+genome_rep = Full
+assembly_level = Complete Genome
+
+# Archaea
+######################
+
+DATABASE = refseq      
+DOMAIN = archaea
+EXTRACT_TO = /distfiles/ncbi/Archaea
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome, Scaffold, Chromosome
+genome_rep = Full
+
+
+
+# Eucaryota
+######################
+
+# NCBI
+
+# vertebrate_mammalian
+DATABASE = refseq      
+DOMAIN = vertebrate_mammalian
+EXTRACT_TO = /distfiles/ncbi/Eukaryota
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome, Scaffold, Chromosome
+genome_rep = Full
+
+# vertebrate_other
+DATABASE = refseq      
+DOMAIN = vertebrate_other
+EXTRACT_TO = /distfiles/ncbi/Eukaryota
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome, Scaffold, Chromosome
+genome_rep = Full
+
+# invertebrate
+DATABASE = refseq      
+DOMAIN = invertebrate
+EXTRACT_TO = /distfiles/ncbi/Eukaryota
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome, Scaffold, Chromosome
+genome_rep = Full
+
+# plant 
+DATABASE = refseq 
+DOMAIN = plant
+EXTRACT_TO = /distfiles/ncbi/Eukaryota
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome, Scaffold, Chromosome
+genome_rep = Full
+
+
+# protozoa
+DATABASE = refseq      
+DOMAIN = protozoa
+EXTRACT_TO = /distfiles/ncbi/Eukaryota
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome, Scaffold, Chromosome
+genome_rep = Full
+
+
+
+
+# Fungi
+######################
+DATABASE = refseq      
+DOMAIN = fungi
+EXTRACT_TO = /distfiles/ncbi/Fungi
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome, Scaffold, Chromosome
+genome_rep = Full
+
+
+# Viruses 
+######################
+DATABASE = refseq      
+DOMAIN = viral
+EXTRACT_TO = /distfiles/ncbi/Viral
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome
+genome_rep = Full
+
+
+
+

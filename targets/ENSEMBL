@@ -1,0 +1,10 @@
+# Ensembl
+
+DATABASE = ensembl
+TYPE = FASTA
+EXTRACT_TO = /distfiles/ensembl
+GROUP_BY = taxid
+sequence_type = pep
+status = all
+
+

@@ -1,0 +1,13 @@
+# Viruses 
+######################
+DATABASE = refseq      
+DOMAIN = viral
+EXTRACT_TO = /distfiles/ncbi/Viral
+GROUP_BY = taxid
+version_status = latest
+assembly_level = Complete Genome
+genome_rep = Full
+
+
+
+

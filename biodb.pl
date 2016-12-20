@@ -670,6 +670,12 @@ sub listEnsembl {
         # Recursively go through all the species
         foreach($ftp->ls) {
             my $species = $_;
+             
+            # Skip species if ancestral alleles
+           if($species eq  "ancestral_alleles") {
+               next;
+           } 
+
             $ftp->cwd($_);
             foreach(map {$ensembl_sequence_type_loc{$_}} @sequence_types) {
 
@@ -698,8 +704,11 @@ sub listEnsembl {
                         if($passed) {   
                              
                              #TODO Write Selector fILE
+
+
                              my $ftpPath = "$ensembl/pub/current_fasta/$species/$type/$_";
                              my $write = $file_decomp->{$group_by};
+
                              print $fh3 "$write\t$ftpPath\n";
                              #print $fh5 "$ensemblChecksumType $checksum->{$_}\n";
                         }
@@ -916,12 +925,13 @@ sub ensemblBreakFile {
     if(grep /\.(cdna|cds|pep|ncrna)\./, $file_name) {
 
                             #species      #assembly          #sequence_type        # status
-        $file_name =~ /^\s*([A-Za-z_]+)\.([A-Za-z0-9_\-\.]+)\.(cdna|cds|pep|ncrna)(\.(all|abinitio))?\.fa\.gz/;
+        $file_name =~ /^\s*([A-Za-z0-9_]+)\.([A-Za-z0-9_\-\.]+)\.(cdna|cds|pep|ncrna)(\.(all|abinitio))?\.fa\.gz/;
 
        %res = (species => $1, 
                assembly   => $2,
                sequence_type => $3,
                status => $5);
+      
         @new_values = (getMapping("species", $1),
                        getMapping("assembly", $2),
                        getMapping("sequence_type", $3),
@@ -929,13 +939,13 @@ sub ensemblBreakFile {
       
         
     } else {                #species      #assembly          # sequence_type     # id_type        # id
-        $file_name =~ /^\s*([A-Za-z_]+)\.([A-Za-z0-9_\-\.]+)\.(dna|dna_rm|dna_sm)\.([a-zA-Z0-9_]+)(\.([a-zA-Z0-9_]+))?\.fa\.gz/;
+        $file_name =~ /^\s*([A-Za-z0-9_]+)\.([A-Za-z0-9_\-\.]+)\.(dna|dna_rm|dna_sm)\.([a-zA-Z0-9_]+)(\.([a-zA-Z0-9_]+))?\.fa\.gz/;
 
         %res = (species => $1, 
                 assembly   => $2,
                 sequence_type => $3,
                 id_type => $4,
-                id => $6);
+                id => $6);    
 
        @new_values = (getMapping("species", $1),
                       getMapping("assembly", $2),
@@ -1021,8 +1031,13 @@ sub readMapping {
 
     my %hash; 
     while(<$fh>) {
-   
-        @spt = split /\t/, $_;
+        
+        @spt = split /\s+/, $_;
+
+        if(not defined $spt[1]) {
+            print $_;
+        }
+
         $hash{$spt[0]} = trim($spt[1]);
     }
     push @element, \%hash;

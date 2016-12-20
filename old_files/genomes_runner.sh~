@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Script for Download and processing the genomes databases, based upon Christian Meyers Jar Script
+# Joern Marialke, Genecenter 2012
+#
+
+# 1 Download Genomes
+perl /cluster/databases/update_scripts/genomes/genomes_download.pl  -d /cluster/databases/genomes/ -v 1
+
+cd /cluster/databases/genomes/current/distfiles/ensembl
+# 1a. Check the Ensembl Genomes for Header Files with no sequences 
+for i in `find -type f -name "*.gz"`; do perl /cluster/databases/update_scripts/genomes/check_genome_ensembles.pl $i;  done
+cd /cluster/databases/genomes
+
+# 2 Process DB Build and initialize DB 
+java -server -Xmx10G  -classpath /cluster/databases/update_scripts/genomes/ genomes/Main   -u  -c /cluster/databases/update_scripts/genomes/config/genomes_conf.txt >> /cluster/databases/update_scripts/logs/java_update_genomes_u.log
+# 3 Format DB Create data folder, unpack and process fasta files 
+java -server -Xmx10G  -classpath /cluster/databases/update_scripts/genomes/ genomes/Main   -f  -c /databases/update_scripts/genomes/config/genomes_conf.txt  >> /cluster/databases/update_scripts/logs/java_update_genomes_f.log
+# 4 Create Genomes Tree
+java -server -Xmx10G -classpath /cluster/databases/update_scripts/genomes/ genomes/Main    -w  -c /cluster/databases/update_scripts/genomes/config/genomes_conf.txt   >> /cluster/databases/update_scripts/logs/java_update_genomes_w.log
+
+
+
+
