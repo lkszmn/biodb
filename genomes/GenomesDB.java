@@ -16,7 +16,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 /**
  *
- * @author chris, extended : Jörn Marialke 2011 MPI for Evolutionary Biology
+ * @author chris, extended : Joern Marialke 2011 MPI for Evolutionary Biology
  */
 public class GenomesDB implements Serializable{
     

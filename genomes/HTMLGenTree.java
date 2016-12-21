@@ -18,7 +18,7 @@ import java.io.BufferedWriter;
 /**
  * 
  * @author chris
- * @updated: Jörn Marialke November 2011
+ * @updated: Joern Marialke November 2011
  */
 public class HTMLGenTree {
 	private final Config config;
