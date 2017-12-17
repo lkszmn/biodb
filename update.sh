@@ -14,7 +14,7 @@
 TARGET="targets/TARGET_OLD"
 
 # The root directory of the genomes database
-ROOT="/cluster/toolkit/production/databases/genomes_new"
+ROOT="/ebio/abt1_share/toolkit_dev/lzimmermann/databases/genomes_new"
 
 
 ###################################################################
@@ -49,7 +49,7 @@ ln -s "${DEST}" "${ROOT}/current"
 perl biodb.pl list -d "${DEST}" -f "${TARGET}" -m "species_taxid.dat" --max-items 2 
 
 # Download the listed files
-perl biodb.pl fetch -d "${DEST}"
+perl biodb.pl fetch -d "${DEST}" --max-items 2 
 
 
 # Download the taxonomy needed by the Java code
